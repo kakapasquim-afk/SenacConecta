@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENAC Eventos - Conectando Conhecimento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #004B93;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .logo-text p {
+            font-size: 13px;
+            color: #a3c9f5;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #F7941D;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #F7941D;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #E67E0D;
+        }
+
+        .btn-outline {
+            background-color: white;
+            color: #004B93;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: #F7941D;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #004B93 0%, #0066CC 50%, #004B93 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #a3c9f5;
+        }
+
+        .search-box {
+            background-color: white;
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 15px;
+        }
+
+        .search-input input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .search-input svg {
+            color: #999;
+        }
+
+        .search-divider {
+            width: 1px;
+            background-color: #e5e7eb;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .categories h3 {
+            font-size: 28px;
+            color: #004B93;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 2px solid #004B93;
+            background-color: white;
+            color: #004B93;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: #004B93;
+            color: white;
+        }
+
+        .category-btn.primary {
+            background-color: #F7941D;
+            border-color: #F7941D;
+            color: white;
+        }
+
+        .category-btn.primary:hover {
+            background-color: #E67E0D;
+            border-color: #E67E0D;
+        }
+
+        /* Events Section */
+        .events {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h3 {
+            font-size: 32px;
+            color: #004B93;
+            font-weight: bold;
+        }
+
+        .section-header a {
+            color: #F7941D;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .section-header a:hover {
+            color: #E67E0D;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .event-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .event-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.1);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #F7941D;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .event-content {
+            padding: 24px;
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #004B93;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .event-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .event-info-item svg {
+            color: #F7941D;
+            flex-shrink: 0;
+        }
+
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px 24px;
+        }
+
+        .event-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #004B93;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(90deg, #004B93 0%, #0066CC 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta h3 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 20px;
+            color: #a3c9f5;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-large {
+            padding: 16px 40px;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #004B93;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer-column p {
+            color: #a3c9f5;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #a3c9f5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #F7941D;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 30px;
+            text-align: center;
+            color: #a3c9f5;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-divider {
+                display: none;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        /* Icons SVG */
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-box">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20tela%202025-11-04%20115113-FvUcbu1aBhRqiB8rgcaOfvA94fbuVU.png" alt="SENAC Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>SENAC Eventos</h1>
+                        <p>Conectando conhecimento</p>
+                    </div>
+                </div>
+                <nav>
+                    <a href="#eventos">Eventos</a>
+                    <a href="#categorias">Categorias</a>
+                    <a href="#sobre">Sobre</a>
+                    <button class="btn btn-outline">Entrar</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Descubra os Melhores Eventos do SENAC</h2>
+            <p>Workshops, cursos, palestras e muito mais para impulsionar sua carreira</p>
+            
+            <div class="search-box">
+                <div class="search-input">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input type="text" placeholder="Buscar eventos...">
+                </div>
+                <div class="search-divider"></div>
+                <div class="search-input">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <input type="text" placeholder="Localização">
+                </div>
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categorias" class="categories">
+        <div class="container">
+            <h3>Categorias</h3>
+            <div class="category-buttons">
+                <button class="category-btn primary">Todos</button>
+                <button class="category-btn">Tecnologia</button>
+                <button class="category-btn">Gastronomia</button>
+                <button class="category-btn">Marketing</button>
+                <button class="category-btn">Negócios</button>
+                <button class="category-btn">Design</button>
+                <button class="category-btn">Fotografia</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events -->
+    <section id="eventos" class="events">
+        <div class="container">
+            <div class="section-header">
+                <h3>Próximos Eventos</h3>
+                <a href="#">Ver todos →</a>
+            </div>
+
+            <div class="events-grid">
+                <!-- Event 1 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop" alt="Workshop de Tecnologia">
+                        <div class="event-badge">Tecnologia</div>
+                    </div>
+                    <div class="event-content">
+                        <h4 class="event-title">Workshop de Tecnologia e Inovação</h4>
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>15 de Dezembro, 2025</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                <span>SENAC São Paulo</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <span>120 participantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">Gratuito</span>
+                        <button class="btn btn-primary">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&h=400&fit=crop" alt="Curso de Gastronomia">
+                        <div class="event-badge">Gastronomia</div>
+                    </div>
+                    <div class="event-content">
+                        <h4 class="event-title">Curso de Gastronomia Profissional</h4>
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>20 de Dezembro, 2025</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                <span>SENAC Rio de Janeiro</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <span>45 participantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">R$ 150,00</span>
+                        <button class="btn btn-primary">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop" alt="Seminário de Marketing">
+                        <div class="event-badge">Marketing</div>
+                    </div>
+                    <div class="event-content">
+                        <h4 class="event-title">Seminário de Marketing Digital</h4>
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>22 de Dezembro, 2025</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                <span>SENAC Brasília</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <span>200 participantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">R$ 80,00</span>
+                        <button class="btn btn-primary">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=400&fit=crop" alt="Palestra de Empreendedorismo">
+                        <div class="event-badge">Negócios</div>
+                    </div>
+                    <div class="event-content">
+                        <h4 class="event-title">Palestra: Empreendedorismo e Gestão</h4>
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>28 de Dezembro, 2025</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                <span>SENAC Curitiba</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <span>150 participantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">R$ 50,00</span>
+                        <button class="btn btn-primary">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Event 5 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=400&fit=crop" alt="Workshop de Design">
+                        <div class="event-badge">Design</div>
+                    </div>
+                    <div class="event-content">
+                        <h4 class="event-title">Workshop de Design Gráfico</h4>
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>05 de Janeiro, 2026</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                <span>SENAC Belo Horizonte</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <span>80 participantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">R$ 120,00</span>
+                        <button class="btn btn-primary">Inscrever-se</button>
+                    </div>
+                </div>
+
+                <!-- Event 6 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=400&fit=crop" alt="Curso de Fotografia">
+                        <div class="event-badge">Fotografia</div>
+                    </div>
+                    <div class="event-content">
+                        <h4 class="event-title">Curso de Fotografia Profissional</h4>
+                        <div class="event-info">
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>10 de Janeiro, 2026</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                </svg>
+                                <span>SENAC Porto Alegre</span>
+                            </div>
+                            <div class="event-info-item">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <span>60 participantes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-footer">
+                        <span class="event-price">R$ 200,00</span>
+                        <button class="btn btn-primary">Inscrever-se</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h3>Organize Seu Próprio Evento</h3>
+            <p>Crie e gerencie eventos incríveis com as ferramentas do SENAC</p>
+            <button class="btn btn-primary btn-large">Criar Evento</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>SENAC Eventos</h4>
+                    <p>Plataforma oficial de eventos do SENAC. Conectando pessoas ao conhecimento.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Eventos</h4>
+                    <ul>
+                        <li><a href="#">Próximos Eventos</a></li>
+                        <li><a href="#">Eventos Online</a></li>
+                        <li><a href="#">Eventos Presenciais</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Central de Ajuda</a></li>
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="#">Sobre o SENAC</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 SENAC - Serviço Nacional de Aprendizagem Comercial. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
